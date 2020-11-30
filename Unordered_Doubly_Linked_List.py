@@ -54,6 +54,11 @@ class UnorderedList:
         self.head = new_node
         self.tail = new_node
 
+    def _check_index_range(self, index):
+        """Raise ValueError if given index out of list range."""
+        if self.size() <= index:
+            raise ValueError("Index out of range.")
+
     def is_empty(self):
         """Returns True if list is empty."""
         return self.head is None
@@ -134,8 +139,7 @@ class UnorderedList:
 
     def find_by_index(self, index):
         """Returns item at given index."""
-        if self.size() <= index:
-            raise ValueError("Index out of range.")
+        self._check_index_range(index)
 
         current = self.head
         current_index = 0
@@ -173,3 +177,16 @@ class UnorderedList:
         else:
             current.prev.next = current.next
             current.next.prev = current.prev
+
+    def __str__(self):
+        """Return list as string."""
+        list_str = '['
+        current = self.head
+        while current is not None:
+            list_str += str(current.data)
+            if current.next is not None:
+                list_str += ', '
+            current = current.next
+        list_str += ']'
+
+        return list_str

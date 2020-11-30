@@ -1,8 +1,8 @@
 from Doubly_Linked_List_Node import Node
 
 
-class UnorderedList:
-    """Unordered doubly linked list implementation with items as nodes."""
+class OrderedList:
+    """Ordered (ascending) doubly linked list implementation with items as nodes."""
 
     def __init__(self):
         self.head = None
@@ -20,7 +20,7 @@ class UnorderedList:
             raise ValueError("Index out of range.")
 
     def _remove_single_item(self):
-        """Remove item from list for use when list size == 1"""
+        """Remove item from list when list size == 1"""
         self.head = None
         self.tail = None
 
@@ -39,37 +39,30 @@ class UnorderedList:
         return count
 
     def add(self, item):
-        """Add item to list."""
+        """Add item to list preserving ascending order."""
         if self.is_empty():
             self._add_to_empty_list(item)
         else:
+            current = self.head
             new_node = Node(item)
-            new_node.next = self.head
-            self.head.prev = new_node
-            self.head = new_node
 
-    def append(self, item):
-        """Append item onto the end of the list."""
-        if self.is_empty():
-            self._add_to_empty_list(item)
-        else:
-            new_node = Node(item)
-            self.tail.next = new_node
-            new_node.prev = self.tail
-            self.tail = new_node
+            while current.next is not None and current.data < item:
+                current = current.next
 
-    def insert(self, item, index):
-        """Insert item into list at index."""
-        current = self.find_by_index(index)
-        new_node = Node(item)
-        new_node.next = current
-        new_node.prev = current.prev
-
-        if current.prev is None:
-            self.head = new_node
-
-        current.prev.next = new_node
-        current.prev = new_node
+            if current.next is None:
+                new_node.prev = current
+                current.next = new_node
+                self.tail = new_node
+            elif current is self.head:
+                self.head = new_node
+                new_node.next = current
+                new_node.prev = current.prev
+                current.prev = new_node
+            else:
+                new_node.next = current
+                new_node.prev = current.prev
+                current.prev.next = new_node
+                current.prev = new_node
 
     def pop(self, index=None):
         """Remove and return item at given index or last item
@@ -106,6 +99,8 @@ class UnorderedList:
         while current is not None:
             if current.data == item:
                 return True
+            if current.data > item:
+                return False
             current = current.next
 
         return False
@@ -140,6 +135,8 @@ class UnorderedList:
         while current is not None:
             if current.data == item:
                 break
+            if current.data > item:
+                raise ValueError(f"{item} not in list.")
             current = current.next
 
         if current is None:

@@ -1,42 +1,12 @@
 from Doubly_Linked_List_Node import Node
+from Doubly_Linked_List import DoublyLinkedList
 
 
-class UnorderedList:
+class UnorderedList(DoublyLinkedList):
     """Unordered doubly linked list implementation with items as nodes."""
 
     def __init__(self):
-        self.head = None
-        self.tail = None
-
-    def _add_to_empty_list(self, item):
-        """Adds item if list is empty."""
-        new_node = Node(item)
-        self.head = new_node
-        self.tail = new_node
-
-    def _check_index_range(self, index):
-        """Raise ValueError if given index out of list range."""
-        if self.size() <= index:
-            raise ValueError("Index out of range.")
-
-    def _remove_single_item(self):
-        """Remove item from list for use when list size == 1"""
-        self.head = None
-        self.tail = None
-
-    def is_empty(self):
-        """Returns True if list is empty."""
-        return self.head is None
-
-    def size(self):
-        """Returns size of list as int."""
-        current = self.head
-        count = 0
-        while current is not None:
-            count += 1
-            current = current.next
-
-        return count
+        super().__init__()
 
     def add(self, item):
         """Add item to list."""
@@ -47,6 +17,7 @@ class UnorderedList:
             new_node.next = self.head
             self.head.prev = new_node
             self.head = new_node
+            self.size += 1
 
     def append(self, item):
         """Append item onto the end of the list."""
@@ -57,6 +28,7 @@ class UnorderedList:
             self.tail.next = new_node
             new_node.prev = self.tail
             self.tail = new_node
+            self.size += 1
 
     def insert(self, item, index):
         """Insert item into list at index."""
@@ -70,35 +42,7 @@ class UnorderedList:
 
         current.prev.next = new_node
         current.prev = new_node
-
-    def pop(self, index=None):
-        """Remove and return item at given index or last item
-           if no index given."""
-        if index is None:
-            current = self.tail
-            if current.prev is None and current.next is None:
-                self._remove_single_item()
-                return current
-            else:
-                current.prev.next = None
-                self.tail = current.prev
-                return current
-        elif index == 0:
-            current = self.head
-            if current.prev is None and current.next is None:
-                self._remove_single_item()
-                return current
-            else:
-                self.head = self.head.next
-                self.head.prev = None
-                return current
-        else:
-            current = self.find_by_index(index)
-            if current != self.tail:
-                current.next.prev = current.prev
-            current.prev.next = current.next
-
-            return current
+        self.size += 1
 
     def search(self, item):
         """Returns True if item is in list."""
@@ -109,30 +53,6 @@ class UnorderedList:
             current = current.next
 
         return False
-
-    def find_by_index(self, index):
-        """Returns item at given index."""
-        self._check_index_range(index)
-
-        current = self.head
-        current_index = 0
-        while current is not None:
-            if current_index == index:
-                return current
-            current = current.next
-            current_index += 1
-
-    def index(self, item):
-        """Returns index of item."""
-        current = self.head
-        index = 0
-        while current is not None:
-            if current.data == item:
-                return index
-            current = current.next
-            index += 1
-
-        raise ValueError(f"'{item}' is not in the list.")
 
     def remove(self, item):
         """Remove item from the list."""
@@ -149,19 +69,12 @@ class UnorderedList:
         elif current.prev is None:
             self.head = current.next
             self.head.prev = None
+            self.size -= 1
+        elif current.next is None:
+            current.prev.next = None
+            self.tail = current.prev
+            self.size -= 1
         else:
             current.prev.next = current.next
             current.next.prev = current.prev
-
-    def __str__(self):
-        """Return list as string."""
-        list_str = '['
-        current = self.head
-        while current is not None:
-            list_str += str(current.data)
-            if current.next is not None:
-                list_str += ', '
-            current = current.next
-        list_str += ']'
-
-        return list_str
+            self.size -= 1

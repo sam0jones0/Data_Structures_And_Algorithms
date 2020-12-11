@@ -1,9 +1,10 @@
-"""Recursive maze solver using turtle."""
+"""Draws a maze from provided text file and recursively solves it
+ using turtle for visual demonstration."""
 
 
 import turtle
 
-
+# Config mapping characters in the map text file to map tile attributes.
 PART_OF_PATH = "O"
 TRIED = "."
 OBSTACLE = "+"
@@ -11,7 +12,11 @@ DEAD_END = "-"
 
 
 class Maze:
+    """Maze class handles the drawing of the maze onto a grid of tiles
+    and provides the turtle with movement and environment interaction recognition.
+    """
     def __init__(self, maze_filename):
+        """Read map file and translate to grid of tiles."""
         rows_in_maze = 0
         columns_in_maze = 0
         self.maze_list = []
@@ -44,6 +49,7 @@ class Maze:
         )
 
     def draw_maze(self):
+        """Quickly draw the maze according to interpreted map text file."""
         self.t.speed(10)
         self.wn.tracer(0)
         for y in range(self.rows_in_maze):
@@ -58,6 +64,7 @@ class Maze:
         self.wn.tracer(1)
 
     def draw_centered_box(self, x, y, color):
+        """Helper function to draw a solid box on a single "obstacle" grid tile."""
         self.t.up()
         self.t.goto(x - 0.5, y - 0.5)
         self.t.color(color)
@@ -71,14 +78,17 @@ class Maze:
         self.t.end_fill()
 
     def move_turtle(self, x, y):
+        """Moves turtle to an adjacent tile."""
         self.t.up()
         self.t.setheading(self.t.towards(x + self.x_translate, -y + self.y_translate))
         self.t.goto(x + self.x_translate, -y + self.y_translate)
 
     def drop_bread_crumb(self, color):
+        """Drop a small "bread crumb" dot trailing the turtle."""
         self.t.dot(10, color)
 
     def update_position(self, row, col, val=None):
+        """Moves turtle and calls for an appropriate bread crumb to be dropped."""
         if val:
             self.maze_list[row][col] = val
         self.move_turtle(col, row)
@@ -98,6 +108,7 @@ class Maze:
             self.drop_bread_crumb(color)
 
     def is_exit(self, row, col):
+        """Checks if turtle has reached the edge of the maze."""
         return (
             row == 0
             or row == self.rows_in_maze - 1
@@ -106,6 +117,9 @@ class Maze:
         )
 
     def __getitem__(self, item):
+        """overloads the index operator so that our algorithm can easily
+        access the status of any particular square.
+        """
         return self.maze_list[item]
 
 

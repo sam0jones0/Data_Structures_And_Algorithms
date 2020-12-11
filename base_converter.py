@@ -1,7 +1,11 @@
+"""Integer base converter using a stack."""
+
+
 from Stack import Stack
 
 
 def base_converter(decimal_num, base):
+    """Returns decimal_num in the provided base."""
     rem_stack = Stack()
 
     while decimal_num > 0:

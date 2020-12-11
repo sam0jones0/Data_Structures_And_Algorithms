@@ -1,3 +1,5 @@
+"""Model of class waiting times for a printer."""
+
 import random
 
 from Queue_my import Queue

@@ -1,3 +1,7 @@
+"""Some methods of finding the smallest number in a list compared for
+time complexity.
+"""
+
 import time
 import random
 

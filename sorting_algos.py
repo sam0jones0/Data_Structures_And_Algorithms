@@ -119,7 +119,7 @@ def merge_sort(my_list, start, end):
 
         # Add in unmerged from left half to temp list.
         merged.extend(my_list[i:mid])
-        # Inject merged list (which doesn't include unmerged from right half) into .
+        # Inject merged list (which doesn't include unmerged from right half) into main list.
         my_list[start:start + len(merged)] = merged
 
 

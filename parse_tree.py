@@ -48,7 +48,7 @@ def build_parse_tree(expr):
 
 
 def evaluate(parse_tree: BinaryTree):
-    # Evaluate math expression tree and return int result.
+    """Evaluate math expression tree and return int result."""
     operators = {
         "+": operator.add,
         "-": operator.sub,
@@ -70,5 +70,26 @@ def evaluate(parse_tree: BinaryTree):
         return parse_tree.key
 
 
-pt = build_parse_tree("( ( 10 + 5 ) * 3 )")
-print(evaluate(pt))
+def postorder_eval(parse_tree: BinaryTree):
+    """Evaluate math expression tree and return int result via
+    postorder traversal.
+    """
+    operators = {
+        "+": operator.add,
+        "-": operator.sub,
+        "*": operator.mul,
+        "/": operator.truediv
+    }
+    result_1 = None
+    result_2 = None
+    if parse_tree:
+        result_1 = postorder_eval(parse_tree.get_left_child())
+        result_2 = postorder_eval(parse_tree.get_right_child())
+        if result_1 and result_2:
+            return operators[parse_tree.get_root_val()](result_1, result_2)
+        else:
+            return parse_tree.get_root_val()
+
+
+# pt = build_parse_tree("( ( 10 + 5 ) * 3 )")
+# print(postorder_eval(pt))

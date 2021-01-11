@@ -1,5 +1,5 @@
 """An Adjacency List Graph. A master list of all vertices is stored in the graph object
- and each vertex object maintains a list of all other vertices it is connected to.
+and each vertex object maintains a list of all other vertices it is connected to.
 """
 
 
@@ -45,17 +45,69 @@ class Graph:
 
 class Vertex:
     """A Vertex (node) of an Adjacency List Graph."""
-    def __init__(self, key):
-        self.id = key
+    def __init__(self, id):
+        self.id = id
         self.connected_to = {}
+        self.colour = 'white'
+        self.dist = 0
+        self.predecessor = None
+        self.disc = 0
+        self.fin = 0
 
     def __str__(self):
-        """Return string representation of this vertex and connected vertices IDs."""
-        return str(self.id) + " connected_to " + str([nbr.id for nbr in self.connected_to])
+        """Return string representation of this vertex, it's variables and
+        connected vertices IDs.
+        """
+        return f"key:{str(self.id)} " + \
+            f"colour:{self.colour} " + \
+            f"disc:{str(self.disc)} " + \
+            f"fin:{str(self.fin)} " + \
+            f"dist:{str(self.dist)}\n" + \
+            f"pred: [{str(self.predecessor)}]\n"
 
     def add_neighbour(self, nbr, weight=0):
         """Add a connection from this vertex to another."""
         self.connected_to[nbr] = weight
+
+    def set_colour(self, colour):
+        """Set vertex colour."""
+        self.colour = colour
+
+    def get_colour(self):
+        """Return vertex colour."""
+        return self.colour
+
+    def set_distance(self, distance):
+        """Set vertex distance."""
+        self.dist = distance
+
+    def get_distance(self):
+        """Return vertex distance."""
+        return self.dist
+
+    def set_predecessor(self, pred):
+        """Set vertex predecessor."""
+        self.predecessor = pred
+
+    def get_predecessor(self):
+        """Return vertex predecessor."""
+        return self.predecessor
+
+    def set_discovery(self, dtime):
+        """Set vertex discovery time."""
+        self.disc = dtime
+
+    def get_discovery(self):
+        """Return vertex discovery time."""
+        return self.disc
+
+    def set_finish(self, ftime):
+        """Set vertex finish time."""
+        self.fin = ftime
+
+    def get_finish(self):
+        """Return vertex finish time."""
+        return self.fin
 
     def get_connections(self):
         """Return dict keys of this vertex's connections."""

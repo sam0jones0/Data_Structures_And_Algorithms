@@ -4,7 +4,9 @@ another word, you are not allowed to transform a word into a non-word) using an
 Adjacency List Graph.
 """
 
-from AdjacencyListGraph import Graph
+from AdjacencyListGraph import Graph, Vertex
+from Queue_my import Queue
+
 
 def build_graph(word_file):
     """Place words with only one differing letter into buckets (dictionaries),
@@ -38,4 +40,42 @@ def build_graph(word_file):
     return g
 
 
-# TODO: Implement breadth first search.
+def breadth_first_search(graph: "Graph", start: "Vertex"):
+    """Breadth first search of 'Graph' starting at 'start' vertex."""
+    start.set_distance(0)
+    start.set_predecessor(None)
+    vertex_q = Queue()  # Queue tracks exploration order.
+    vertex_q.enqueue(start)
+    while vertex_q.size() > 0:
+        current_vertex: Vertex = vertex_q.dequeue()
+        nbr: Vertex
+        for nbr in current_vertex.get_connections():
+            if nbr.get_colour() == "white":
+                # Explore an unexplored vertex: "white" and set colour "grey" /
+                # to note initial discovery and exploration in progress.
+                nbr.set_colour("grey")
+                nbr.set_distance(current_vertex.get_distance() + 1)
+                nbr.set_predecessor(current_vertex)
+                vertex_q.enqueue(nbr)  # Add to queue for further exploration.
+        # Set vertex color: "black" to note it has been fully explored. /
+        # i.e. It has no "white" (undiscovered) adjacent vertices.
+        current_vertex.set_colour("black")
+    traverse(current_vertex)
+
+
+def traverse(y: "Vertex"):
+    """Follow the predecessor variable from y back to the tree root,
+    printing out the word ladder in the process.
+    """
+    x: "Vertex" = y
+    while x.get_predecessor():
+        print(x.get_id())
+        x = x.get_predecessor()
+    print(x.get_id())
+
+
+g = build_graph("word_ladder_words_file.txt")
+start_vertex_key = list(g.get_vertices())[0]
+start_vertex = g.get_vertex(start_vertex_key)
+breadth_first_search(g, start_vertex)
+traverse(start_vertex)

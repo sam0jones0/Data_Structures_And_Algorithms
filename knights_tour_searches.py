@@ -6,42 +6,61 @@ from AdjacencyListGraph import Graph, Vertex
 from knights_tour_graph import build_knight_graph
 
 
-def knights_tour_dfs(current_depth, path, vertex, limit):
+def knights_tour_dfs(vertex, path, limit):
     """Recursive depth first search to return a valid path for the knights tour problem.
     current_depth: Current depth in the search tree (start at 0)
     path: A list of vertices visited up to the current point in time.
     vertex: The current vertex we wish to explore (initially used as search start point.
     limit: The total number of nodes in the path, used as the base case.
-    This algorithm is exponential and very slow: O(k**N)."""
+    """
+    done = False
     vertex.set_colour('gray')  # Denotes visited.
     path.append(vertex)
-    if current_depth < limit:
+
+    if len(path) < limit:
         # There are still unvisited vertices.
-        neighbour_list = list(vertex.get_connections())
-        i = 0
-        done = False
-        while i < len(neighbour_list) and not done:
-            # There are still unexplored neighbours.
-            if neighbour_list[i].get_colour() == 'white':
+        for neighbour in order_by_fewest_connections(vertex):
+            if done:
+                break
+            if neighbour.get_colour() == 'white':
                 # This node is unvisited.
-                done = knights_tour_dfs(current_depth + 1, path, neighbour_list[i], limit)
-            i += 1
+                done = knights_tour_dfs(neighbour, path, limit)
+
         if not done:  # No unvisited neighbours/dead end. Prepare to backtrack.
-            path.pop()
             vertex.set_colour('white')
+            path.pop()
     else:
         done = True
-        print([v.id for v in path])
 
     return done
 
 
-# # Example run for knights_tour_dfs
-# board_size = 8
-# knight_graph = build_knight_graph(board_size)
-# start_vertex = knight_graph.vert_list[0]
-#
-# knights_tour_dfs(0, [], start_vertex, 63)
+def order_by_fewest_connections(vertex):
+    """Returns list of this vertex's neighbours ordered from fewest to largest
+    consequent moves from that location. This heuristic is based on Warnsdorff's
+    algorithm.
+    """
+    result_list = []
+    for next_vertex in vertex.get_connections():
+        count = 0
+        for vert in next_vertex.get_connections():
+            if vert.get_colour() == 'white':
+                count += 1
+
+        result_list.append((count, next_vertex))
+
+    result_list.sort(key=lambda x: x[0])
+    return [y[1] for y in result_list]
 
 
-# TODO: Other search algorithms.
+# Example run for knights_tour_dfs
+board_size = 8
+path = []
+knight_graph = build_knight_graph(board_size)
+start_vertex = knight_graph.vert_list[10]
+
+knights_tour_dfs(start_vertex, path, 64)
+
+print([v.id for v in path])
+
+

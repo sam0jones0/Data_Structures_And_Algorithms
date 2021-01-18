@@ -42,17 +42,19 @@ def gen_legal_moves(row, col, board_size):
     move_offsets = [(-1, -2), (-1, 2), (-2, -1), (-2, 1),
                     (1, -2), (1, 2), (2, -1), (2, 1)]
 
-    for i in move_offsets:
-        new_move = (row + i[0], col + i[1])
-        if is_legal_coord(new_move, board_size):
-            new_moves.append(new_move)
+    for move in move_offsets:
+        if is_legal_coord(row + move[0], col + move[1], board_size):
+            new_moves.append((row + move[0], col + move[1]))
 
     return new_moves
 
 
-def is_legal_coord(coord, board_size):
+def is_legal_coord(row, col, board_size):
     """Return True if provided co-ordinate fits on a board of board_size, otherwise False"""
-    return 0 <= coord[0] < board_size and 0 <= coord[1] < board_size
+    if 0 <= row < board_size and 0 <= col < board_size:
+        return True
+    else:
+        return False
 
 
 def draw_graph_pdf(graph, board_size):

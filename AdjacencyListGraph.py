@@ -2,6 +2,7 @@
 and each vertex object maintains a list of all other vertices it is connected to.
 """
 
+import sys
 
 class Graph:
     """An Adjacency List Graph."""
@@ -37,7 +38,7 @@ class Graph:
 
     def get_vertices(self):
         """Return dict list of vertices' keys."""
-        return self.vert_list.keys()
+        return list(self.vert_list.keys())
 
     def __iter__(self):
         return iter(self.vert_list.values())
@@ -49,7 +50,7 @@ class Vertex:
         self.id = id
         self.connected_to = {}
         self.colour = 'white'
-        self.dist = 0
+        self.dist = sys.maxsize
         self.predecessor = None
         self.disc = 0
         self.fin = 0

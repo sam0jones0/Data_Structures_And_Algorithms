@@ -2,6 +2,7 @@
 Improved upon in the BinaryTree.py class.
 """
 
+
 def make_binary_tree(root) -> list:
     return [root, [], []]
 

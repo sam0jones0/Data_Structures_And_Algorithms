@@ -222,3 +222,5 @@ fabric.properties
 /.idea/vcs.xml
 /.idea/.gitignore
 /sierpinski_square.py
+/maze2.txt
+/turtle_maze.py

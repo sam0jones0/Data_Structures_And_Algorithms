@@ -4,6 +4,7 @@ and each vertex object maintains a list of all other vertices it is connected to
 
 import sys
 
+
 class Graph:
     """An Adjacency List Graph."""
     def __init__(self):

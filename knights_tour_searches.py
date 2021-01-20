@@ -57,7 +57,7 @@ def order_by_fewest_connections(vertex):
 board_size = 8
 path = []
 knight_graph = build_knight_graph(board_size)
-start_vertex = knight_graph.vert_list[10]
+start_vertex = knight_graph.vert_list[15]
 
 knights_tour_dfs(start_vertex, path, 64)
 

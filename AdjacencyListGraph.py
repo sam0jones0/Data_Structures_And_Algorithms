@@ -6,7 +6,7 @@ import sys
 
 
 class Graph:
-    """An Adjacency List Graph."""
+    """A directed Adjacency List Graph."""
     def __init__(self):
         self.vert_list = {}
         self.num_vertices = 0
@@ -56,16 +56,16 @@ class Vertex:
         self.disc = 0
         self.fin = 0
 
-    def __str__(self):
-        """Return string representation of this vertex, it's variables and
-        connected vertices IDs.
-        """
-        return f"key:{str(self.id)} " + \
-            f"colour:{self.colour} " + \
-            f"disc:{str(self.disc)} " + \
-            f"fin:{str(self.fin)} " + \
-            f"dist:{str(self.dist)}\n" + \
-            f"pred: [{str(self.predecessor)}]\n"
+    # def __str__(self):
+    #     """Return string representation of this vertex, it's variables and
+    #     connected vertices IDs.
+    #     """
+    #     return f"key:{str(self.id)} " + \
+    #         f"colour:{self.colour} " + \
+    #         f"disc:{str(self.disc)} " + \
+    #         f"fin:{str(self.fin)} " + \
+    #         f"dist:{str(self.dist)}\n" + \
+    #         f"pred: [{str(self.predecessor)}]\n"
 
     def add_neighbour(self, nbr, weight=0):
         """Add a connection from this vertex to another."""

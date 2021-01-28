@@ -7,7 +7,7 @@ from AdjacencyListGraph import Graph, Vertex
 
 def dijkstra(a_graph: "Graph", start: "Vertex"):
     """Iterates over each vertex in a graph in order of distance between vertices
-    controlled by a priority queue. Provided a weighted graph, the distances from
+    controlled by a priority queue. Provided a weighted graph, the shortest distances from
     the starting vertex to any given vertex are set correctly, along with each
     vertex's predecessor link.
     """

@@ -68,7 +68,7 @@ class Vertex:
     #         f"pred: [{str(self.predecessor)}]\n"
 
     def add_neighbour(self, nbr, weight=0):
-        """Add a connection from this vertex to another."""
+        """Add a connection from this vertex to another, with optional weight."""
         self.connected_to[nbr] = weight
 
     def set_colour(self, colour):
@@ -82,6 +82,10 @@ class Vertex:
     def set_distance(self, distance):
         """Set vertex distance."""
         self.dist = distance
+
+    def set_distance_max(self):
+        """Set vertex distance to sys.maxsize."""
+        self.dist = sys.maxsize
 
     def get_distance(self):
         """Return vertex distance."""

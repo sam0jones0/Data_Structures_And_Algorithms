@@ -8,7 +8,7 @@ def draw_triangle(points, color, my_turtle):
     my_turtle.fillcolor(color)
     my_turtle.up()
     my_turtle.goto(points[0][0], points[0][1])
-    my_turtle.down()
+    my_turtle._down()
     my_turtle.begin_fill()
     my_turtle.goto(points[1][0], points[1][1])
     my_turtle.goto(points[2][0], points[2][1])

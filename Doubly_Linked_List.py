@@ -37,29 +37,29 @@ class DoublyLinkedList:
            if no index given."""
         if index is None:
             current = self.tail
-            if current.prev is None and current.next is None:
+            if current.prev is None and current._next is None:
                 self._remove_single_item()
                 return current
             else:
-                current.prev.next = None
+                current.prev._next = None
                 self.tail = current.prev
                 self.size -= 1
                 return current
         elif index == 0:
             current = self.head
-            if current.prev is None and current.next is None:
+            if current.prev is None and current._next is None:
                 self._remove_single_item()
                 return current
             else:
-                self.head = self.head.next
+                self.head = self.head._next
                 self.head.prev = None
                 self.size -= 1
                 return current
         else:
             current = self.find_by_index(index)
             if current != self.tail:
-                current.next.prev = current.prev
-            current.prev.next = current.next
+                current._next.prev = current.prev
+            current.prev._next = current._next
             self.size -= 1
             return current
 
@@ -72,7 +72,7 @@ class DoublyLinkedList:
         while current is not None:
             if current_index == index:
                 return current
-            current = current.next
+            current = current._next
             current_index += 1
 
     def index(self, item):
@@ -82,7 +82,7 @@ class DoublyLinkedList:
         while current is not None:
             if current.data == item:
                 return index
-            current = current.next
+            current = current._next
             index += 1
 
         raise ValueError(f"'{item}' is not in the list.")
@@ -95,7 +95,7 @@ class DoublyLinkedList:
             list_str += str(current.data)
             if current.next is not None:
                 list_str += ', '
-            current = current.next
+            current = current._next
         list_str += ']'
 
         return list_str

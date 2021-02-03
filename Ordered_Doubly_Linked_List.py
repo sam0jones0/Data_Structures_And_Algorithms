@@ -33,7 +33,7 @@ class OrderedList(DoublyLinkedList):
             else:
                 new_node.next = current
                 new_node.prev = current.prev
-                current.prev.next = new_node
+                current.prev._next = new_node
                 current.prev = new_node
                 self.size += 1
 
@@ -45,7 +45,7 @@ class OrderedList(DoublyLinkedList):
                 return True
             if current.data > item:
                 return False
-            current = current.next
+            current = current._next
 
         return False
 
@@ -57,21 +57,21 @@ class OrderedList(DoublyLinkedList):
                 break
             if current.data > item:
                 raise ValueError(f"{item} not in list.")
-            current = current.next
+            current = current._next
 
         if current is None:
             raise ValueError(f"{item} not in list.")
-        elif current.prev is None and current.next is None:
+        elif current.prev is None and current._next is None:
             self._remove_single_item()
         elif current.prev is None:
-            self.head = current.next
+            self.head = current._next
             self.head.prev = None
             self.size -= 1
-        elif current.next is None:
+        elif current._next is None:
             current.prev.next = None
             self.tail = current.prev
             self.size -= 1
         else:
-            current.prev.next = current.next
-            current.next.prev = current.prev
+            current.prev.next = current._next
+            current._next.prev = current.prev
             self.size -= 1

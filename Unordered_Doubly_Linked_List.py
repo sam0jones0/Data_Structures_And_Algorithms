@@ -50,7 +50,7 @@ class UnorderedList(DoublyLinkedList):
         while current is not None:
             if current.data == item:
                 return True
-            current = current.next
+            current = current._next
 
         return False
 
@@ -60,21 +60,21 @@ class UnorderedList(DoublyLinkedList):
         while current is not None:
             if current.data == item:
                 break
-            current = current.next
+            current = current._next
 
         if current is None:
             raise ValueError(f"{item} not in list.")
-        elif current.prev is None and current.next is None:
+        elif current.prev is None and current._next is None:
             self._remove_single_item()
         elif current.prev is None:
-            self.head = current.next
+            self.head = current._next
             self.head.prev = None
             self.size -= 1
-        elif current.next is None:
+        elif current._next is None:
             current.prev.next = None
             self.tail = current.prev
             self.size -= 1
         else:
-            current.prev.next = current.next
-            current.next.prev = current.prev
+            current.prev.next = current._next
+            current._next.prev = current.prev
             self.size -= 1

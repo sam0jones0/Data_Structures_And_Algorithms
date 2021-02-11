@@ -1,7 +1,8 @@
 """Implementation of the Map data type using a SkipList."""
 
-from Stack import Stack
 from random import randrange
+
+from Stack import Stack
 
 
 class SkipList:

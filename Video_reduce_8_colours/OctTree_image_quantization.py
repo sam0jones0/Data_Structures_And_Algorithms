@@ -15,6 +15,8 @@ import sys
 
 from PIL import Image
 
+from BinaryHeap import BinaryHeapOT
+
 
 class OctTree:
     """The outer OctTree data type, which holds all the tree's inner nodes.
@@ -30,9 +32,10 @@ class OctTree:
     """
     def __init__(self):
         self.root = None
-        self.max_level = 2
+        self.max_level = 3
         self.num_leaves = 0
         self.all_leaves = []
+        self.heap = BinaryHeapOT()
 
     def insert(self, r, g, b):
         """Add a new OTNode to the tree."""
@@ -53,6 +56,7 @@ class OctTree:
         in the the final image.
         """
         while len(self.all_leaves) > max_cubes:
+            self.heap.heapify(self.all_leaves)
             smallest = self.find_min_cube()
             smallest.parent.merge()
             self.all_leaves.append(smallest.parent)
@@ -60,19 +64,7 @@ class OctTree:
 
     def find_min_cube(self):
         """Return the node with the fewest number of pixels of that colour."""
-        min_count = sys.maxsize
-        max_level = 0
-        min_cube = 0
-        for i in self.all_leaves:
-            if (
-                i.count <= min_count
-                and i.level >= max_level
-            ):
-                min_cube = i
-                min_count = i.count
-                max_level = i.level
-
-        return min_cube
+        return self.heap.delete()
 
     class OTNode:
         """A single node of the OCTree, initialised with 8 children.
@@ -170,6 +162,11 @@ class OctTree:
             for i in range(8):
                 self.children[i] = None
 
+        def __lt__(self, val):
+            self.count <= val.count and self.level >= val.level
+
+        def __gt__(self, val):
+            self.count >= val.count and self.level <= val.level
 
 def build_and_display(filename):
     """Read, quantize and display an image."""
@@ -182,7 +179,13 @@ def build_and_display(filename):
             r, g, b = im.getpixel((col, row))
             ot.insert(r, g, b)
 
+    print(ot.heap)
     ot.reduce(8)
+    print(ot.heap)
+
+    # while not ot.heap.is_empty():
+    #     item = ot.heap.delete()
+    #     print(f"{item.count} {item.level}")
 
     for row in range(0, h):
         for col in range(0, w):
@@ -193,4 +196,4 @@ def build_and_display(filename):
     im.show()
 
 
-# build_and_display("laura.jpeg")
+build_and_display("pp.jpg")

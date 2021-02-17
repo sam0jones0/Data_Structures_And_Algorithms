@@ -129,7 +129,7 @@ def quick_sort(my_list):
 
 
 def quick_sort_helper(my_list, first, last):
-    """Recursively calls the partition function on on each half of the split list."""
+    """Recursively calls the partition function on each half of the split list."""
     if first < last:
         split = partition(my_list, first, last)
         quick_sort_helper(my_list, first, split - 1)

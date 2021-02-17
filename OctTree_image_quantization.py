@@ -11,9 +11,10 @@ This process is repeated until the desired number of leaves (colours) remains.
 The image is then redrawn with these new colour averages.
 """
 
-import sys
 
 from PIL import Image
+
+from SkipList import SkipList
 
 
 class OctTree:
@@ -30,9 +31,9 @@ class OctTree:
     """
     def __init__(self):
         self.root = None
-        self.max_level = 5
-        self.num_leaves = 0
-        self.all_leaves = []
+        self.max_level = 2
+        self.all_leaves = SkipList()
+        self.all_leaves_list = []
 
     def insert(self, r, g, b):
         """Add a new OTNode to the tree."""
@@ -52,27 +53,16 @@ class OctTree:
         The int provided to this function dictates how many colours will be present
         in the the final image.
         """
+        for leaf_node in self.all_leaves_list:
+            self.all_leaves.insert(leaf_node)
         while len(self.all_leaves) > max_cubes:
             smallest = self.find_min_cube()
             smallest.parent.merge()
-            self.all_leaves.append(smallest.parent)
-            self.num_leaves += 1
+            self.all_leaves.insert(smallest.parent)
 
     def find_min_cube(self):
         """Return the node with the fewest number of pixels of that colour."""
-        min_count = sys.maxsize
-        max_level = 0
-        min_cube = 0
-        for i in self.all_leaves:
-            if (
-                i.count <= min_count
-                and i.level >= max_level
-            ):
-                min_cube = i
-                min_count = i.count
-                max_level = i.level
-
-        return min_cube
+        return self.all_leaves.pop_min().key
 
     class OTNode:
         """A single node of the OCTree, initialised with 8 children.
@@ -116,8 +106,7 @@ class OctTree:
                 self.children[idx].insert(r, g, b, level + 1, outer)
             else:
                 if self.count == 0:
-                    self.oTree.num_leaves += 1
-                    self.oTree.all_leaves.append(self)
+                    self.oTree.all_leaves_list.append(self)
                 # Add the colour components to any existing components and increment
                 # the reference counter. This allows the average of any colour below the
                 # current node in the colour cube to be calculated.
@@ -158,8 +147,10 @@ class OctTree:
             for i in self.children:
                 if i:
                     if i.count > 0:
-                        self.oTree.all_leaves.remove(i)
-                        self.oTree.num_leaves -= 1
+                        try:
+                            self.oTree.all_leaves.remove(i)
+                        except ValueError:
+                            pass
                     else:
                         print("Recursively Merging non-leaf...")
                         i.merge()
@@ -169,6 +160,12 @@ class OctTree:
                     self.blue += i.blue
             for i in range(8):
                 self.children[i] = None
+
+        def __lt__(self, val):
+            return self.count <= val.count and self.level >= val.level
+
+        def __gt__(self, val):
+            return self.count >= val.count and self.level <= val.level
 
 
 def build_and_display(filename):
@@ -193,4 +190,4 @@ def build_and_display(filename):
     im.show()
 
 
-build_and_display("example.jpg")
+build_and_display("pp.jpg")

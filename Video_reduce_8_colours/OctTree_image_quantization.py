@@ -11,11 +11,10 @@ This process is repeated until the desired number of leaves (colours) remains.
 The image is then redrawn with these new colour averages.
 """
 
-import sys
 
 from PIL import Image
 
-from BinaryHeap import BinaryHeapOT
+from SkipList import SkipList
 
 
 class OctTree:
@@ -32,10 +31,9 @@ class OctTree:
     """
     def __init__(self):
         self.root = None
-        self.max_level = 3
-        self.num_leaves = 0
-        self.all_leaves = []
-        self.heap = BinaryHeapOT()
+        self.max_level = 2
+        self.all_leaves = SkipList()
+        self.all_leaves_list = []
 
     def insert(self, r, g, b):
         """Add a new OTNode to the tree."""
@@ -55,16 +53,16 @@ class OctTree:
         The int provided to this function dictates how many colours will be present
         in the the final image.
         """
+        for leaf_node in self.all_leaves_list:
+            self.all_leaves.insert(leaf_node)
         while len(self.all_leaves) > max_cubes:
-            self.heap.heapify(self.all_leaves)
             smallest = self.find_min_cube()
             smallest.parent.merge()
-            self.all_leaves.append(smallest.parent)
-            self.num_leaves += 1
+            self.all_leaves.insert(smallest.parent)
 
     def find_min_cube(self):
         """Return the node with the fewest number of pixels of that colour."""
-        return self.heap.delete()
+        return self.all_leaves.pop_min().key
 
     class OTNode:
         """A single node of the OCTree, initialised with 8 children.
@@ -108,8 +106,7 @@ class OctTree:
                 self.children[idx].insert(r, g, b, level + 1, outer)
             else:
                 if self.count == 0:
-                    self.oTree.num_leaves += 1
-                    self.oTree.all_leaves.append(self)
+                    self.oTree.all_leaves_list.append(self)
                 # Add the colour components to any existing components and increment
                 # the reference counter. This allows the average of any colour below the
                 # current node in the colour cube to be calculated.
@@ -150,8 +147,10 @@ class OctTree:
             for i in self.children:
                 if i:
                     if i.count > 0:
-                        self.oTree.all_leaves.remove(i)
-                        self.oTree.num_leaves -= 1
+                        try:
+                            self.oTree.all_leaves.remove(i)
+                        except ValueError:
+                            pass
                     else:
                         print("Recursively Merging non-leaf...")
                         i.merge()
@@ -163,10 +162,11 @@ class OctTree:
                 self.children[i] = None
 
         def __lt__(self, val):
-            self.count <= val.count and self.level >= val.level
+            return self.count <= val.count and self.level >= val.level
 
         def __gt__(self, val):
-            self.count >= val.count and self.level <= val.level
+            return self.count >= val.count and self.level <= val.level
+
 
 def build_and_display(filename):
     """Read, quantize and display an image."""
@@ -179,13 +179,7 @@ def build_and_display(filename):
             r, g, b = im.getpixel((col, row))
             ot.insert(r, g, b)
 
-    print(ot.heap)
-    ot.reduce(8)
-    print(ot.heap)
-
-    # while not ot.heap.is_empty():
-    #     item = ot.heap.delete()
-    #     print(f"{item.count} {item.level}")
+    ot.reduce(256)
 
     for row in range(0, h):
         for col in range(0, w):
@@ -194,6 +188,3 @@ def build_and_display(filename):
             im.putpixel((col, row), (nr, ng, nb))
 
     im.show()
-
-
-build_and_display("pp.jpg")

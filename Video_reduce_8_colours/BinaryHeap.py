@@ -72,12 +72,3 @@ class BinaryHeapOT:
 
     def __str__(self):
         return str(self._heap)
-
-    def __lt__(self, val):
-        self.count <= val.count and self.level >= val.level
-
-    def __gt__(self, val):
-        self.count >= val.count and self.level <= val.level
-
-    def __iter__(self):
-        return iter(self._heap)

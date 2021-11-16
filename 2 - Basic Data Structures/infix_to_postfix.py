@@ -11,11 +11,11 @@ def infix_to_postfix(expression):
     for token in input_list:
         if token not in ["*", "/", "+", "-", "(", ")", "**"]:
             output_list.append(token)
-        elif token == '(':
+        elif token == "(":
             op_stack.push(token)
-        elif token == ')':
+        elif token == ")":
             top_token = op_stack.pop()
-            while top_token != '(':
+            while top_token != "(":
                 output_list.append(top_token)
                 top_token = op_stack.pop()
         else:
@@ -26,7 +26,7 @@ def infix_to_postfix(expression):
     while not op_stack.is_empty():
         output_list.append(op_stack.pop())
 
-    return ' '.join(output_list)
+    return " ".join(output_list)
 
 
 def eval_postfix(expression):

@@ -152,8 +152,8 @@ class SkipList:
                 elif key > current.next.key:
                     current = current.next
                 elif (
-                        key.count == current.next.key.count
-                        and key.level == current.next.key.level
+                    key.count == current.next.key.count
+                    and key.level == current.next.key.level
                 ):
                     current = current.next
                 else:
@@ -195,6 +195,7 @@ class HeaderNode:
     """A HeaderNode of a level of a SkipList. Has references to the HeaderNode below
     and to the first DataNode of its level.
     """
+
     def __init__(self):
         self._next = None
         self._down = None
@@ -220,6 +221,7 @@ class DataNode:
     """A DataNode of a SkipList. Holds a key and associated value. Has references
     to the next node of its level and to the node on the level below.
     """
+
     def __init__(self, key, value):
         self._key = key
         self._data = value
@@ -264,6 +266,7 @@ class Map:
     """A collection of key/value pairs where values can be inserted and accessed
     via their associated key.
     """
+
     def __init__(self):
         self.collection = SkipList()
 

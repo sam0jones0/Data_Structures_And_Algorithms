@@ -16,6 +16,7 @@ class DFSGraph(Graph):
     class with a new variable "time", to track the discovery and finish time of
     each vertex's exploration.
     """
+
     def __init__(self):
         super().__init__()
         self.time = 0
@@ -26,10 +27,10 @@ class DFSGraph(Graph):
 
     def depth_first_search(self, compute_scc=False):
         """Iterate over all the unexplored vertices in a graph by calling dfs_visit
-         on each vertex.
-         If compute_scc=True then strongly connected components will be grouped
-         together into sublists.
-         """
+        on each vertex.
+        If compute_scc=True then strongly connected components will be grouped
+        together into sublists.
+        """
         if compute_scc:
             # Only used when computing SCC to group connected vertices.
             subtree_idx = -1
@@ -44,7 +45,9 @@ class DFSGraph(Graph):
                     # Set the index of and append to the subtree_list this scc group.
                     subtree_idx += 1
                     subtree_list.append([vertex.id])
-                    self.dfs_visit(vertex, subtree_idx=subtree_idx, subtree_list=subtree_list)
+                    self.dfs_visit(
+                        vertex, subtree_idx=subtree_idx, subtree_list=subtree_list
+                    )
                 else:
                     self.dfs_visit(vertex)
 
@@ -53,10 +56,10 @@ class DFSGraph(Graph):
 
     def dfs_visit(self, start_vertex: "Vertex", subtree_idx=0, subtree_list=None):
         """Starting with start_vertex, recursively explore all the neighbouring
-         unexplored vertices as deeply as possible.
-         If a subtree_list is provided, add scc vertices to their corresponding scc
-         subtree list.
-         """
+        unexplored vertices as deeply as possible.
+        If a subtree_list is provided, add scc vertices to their corresponding scc
+        subtree list.
+        """
         start_vertex.set_colour("grey")
         self.time += 1
         start_vertex.set_discovery(self.time)
@@ -112,10 +115,8 @@ class DFSGraph(Graph):
         transposed_graph = self.transpose()
         # Sort vertex list by decreasing order of finish time.
         verts_desc_by_fin = sorted(
-                           transposed_graph.vert_list.items(),
-                           key=lambda x: x[1].fin,
-                           reverse=True
-                           )
+            transposed_graph.vert_list.items(), key=lambda x: x[1].fin, reverse=True
+        )
         # Sorted list is converted back to a dictionary.
         verts_desc_by_fin = {v[0]: v[1] for v in verts_desc_by_fin}
         transposed_graph.vert_list = verts_desc_by_fin
@@ -130,7 +131,7 @@ class DFSGraph(Graph):
         before searching a transposed graph."""
         self.time = 0
         for vertex in self:
-            vertex.colour = 'white'
+            vertex.colour = "white"
             vertex.predecessor = None
             vertex.disc = 0
             vertex.fin = 0

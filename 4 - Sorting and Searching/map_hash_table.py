@@ -1,7 +1,8 @@
 class HashTable:
     """Hash table using two parallel lists (key/value) to implement the map
-     abstract data type.
-     """
+    abstract data type.
+    """
+
     def __init__(self):
         self.size = 11
         self.slots = [None] * self.size
@@ -62,7 +63,7 @@ class HashTable:
         position = start_slot
         while self.slots[position] is not None:
             if self.slots[position] == key:
-                self.slots[position] = 'DEL'
+                self.slots[position] = "DEL"
                 self.data[position] = None
             else:
                 position = self.rehash(position, len(self.slots))
@@ -82,7 +83,7 @@ class HashTable:
         """Returns True if slot is open for insertion, False otherwise.
         Previously occupied slots which have been deleted are considered open.
         """
-        if self.slots[hash_value] is None or self.slots[hash_value] == 'DEL':
+        if self.slots[hash_value] is None or self.slots[hash_value] == "DEL":
             return True
         else:
             return False

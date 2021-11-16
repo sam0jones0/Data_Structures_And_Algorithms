@@ -22,7 +22,7 @@ def build_graph(word_file):
         word = line[:-1]
         for i in range(len(word)):
             # Replace each char of word with wildcard "_".
-            bucket = word[:i] + "_" + word[i+1:]
+            bucket = word[:i] + "_" + word[i + 1 :]
             if bucket in d:
                 # Append word to existing bucket.
                 d[bucket].append(word)

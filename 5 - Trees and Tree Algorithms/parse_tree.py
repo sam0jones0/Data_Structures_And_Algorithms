@@ -53,7 +53,7 @@ def evaluate(parse_tree: BinaryTree):
         "+": operator.add,
         "-": operator.sub,
         "*": operator.mul,
-        "/": operator.truediv
+        "/": operator.truediv,
     }
 
     left_child = parse_tree.left_child
@@ -61,10 +61,7 @@ def evaluate(parse_tree: BinaryTree):
 
     if left_child and right_child:
         # Apply operator to results from recursive eval of left and right children.
-        return operators[parse_tree.key](
-            evaluate(left_child),
-            evaluate(right_child)
-        )
+        return operators[parse_tree.key](evaluate(left_child), evaluate(right_child))
     else:
         # Base case; this is a leaf node as both children are None.
         return parse_tree.key
@@ -78,7 +75,7 @@ def postorder_eval(parse_tree: BinaryTree):
         "+": operator.add,
         "-": operator.sub,
         "*": operator.mul,
-        "/": operator.truediv
+        "/": operator.truediv,
     }
     result_1 = None
     result_2 = None

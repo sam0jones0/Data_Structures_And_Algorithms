@@ -1,5 +1,6 @@
 class BinarySearchTree:
     """Binary Search Tree implementation with TreeNode nodes."""
+
     def __init__(self):
         self.root = None
         self.size = 0
@@ -126,12 +127,13 @@ class BinarySearchTree:
                         node_to_remove.right_child.key,
                         node_to_remove.right_child.value,
                         node_to_remove.right_child.left_child,
-                        node_to_remove.right_child.right_child
+                        node_to_remove.right_child.right_child,
                     )
 
 
 class TreeNode:
     """Tree node of a Binary Search Tree."""
+
     def __init__(self, key, value, left=None, right=None, parent=None):
         self.key = key
         self.value = value

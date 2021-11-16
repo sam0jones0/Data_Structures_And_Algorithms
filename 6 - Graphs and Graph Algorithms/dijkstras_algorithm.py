@@ -20,8 +20,7 @@ def dijkstra(a_graph: "Graph", start: "Vertex"):
         current_vert: Vertex = pq.delMin()
         next_vert: Vertex
         for next_vert in current_vert.get_connections():
-            new_dist = current_vert.get_distance() \
-                     + current_vert.get_weight(next_vert)
+            new_dist = current_vert.get_distance() + current_vert.get_weight(next_vert)
             if new_dist < next_vert.get_distance():
                 # This new route is shorter.
                 next_vert.set_distance(new_dist)

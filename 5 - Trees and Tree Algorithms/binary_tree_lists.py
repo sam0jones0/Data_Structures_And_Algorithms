@@ -48,4 +48,3 @@ insert_right(get_left_child(x), "d")
 insert_left(get_right_child(x), "e")
 insert_right(get_right_child(x), "f")
 print(x)
-

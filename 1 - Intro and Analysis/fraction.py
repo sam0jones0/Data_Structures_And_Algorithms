@@ -1,5 +1,6 @@
 class Fraction:
     """Class modelling a fraction."""
+
     def __init__(self, top, bottom):
         """Constructor definition."""
         self.num = top
@@ -36,8 +37,7 @@ class Fraction:
 
     def __add__(self, other_fraction):
         """Adds this fraction to another."""
-        new_num = self.num * other_fraction.den \
-                  + self.den * other_fraction.num
+        new_num = self.num * other_fraction.den + self.den * other_fraction.num
         new_den = self.den * other_fraction.den
         common_den = gcd(new_num, new_den)
 
@@ -45,8 +45,7 @@ class Fraction:
 
     def __sub__(self, other_fraction):
         """Subtracts another fraction from this one."""
-        new_num = self.num * other_fraction.den \
-                  - self.den * other_fraction.num
+        new_num = self.num * other_fraction.den - self.den * other_fraction.num
         new_den = self.den * other_fraction.den
         common_den = gcd(new_num, new_den)
 

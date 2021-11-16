@@ -34,7 +34,9 @@ def return_times(func):
         min_number = func(a_list)
         end = time.time()
         times.append(end - start)
-        print(f"Min: {min_number}. List size {str(list_size)}. Time: {str(end - start)}")
+        print(
+            f"Min: {min_number}. List size {str(list_size)}. Time: {str(end - start)}"
+        )
     return times
 
 

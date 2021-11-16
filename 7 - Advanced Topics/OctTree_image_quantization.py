@@ -29,6 +29,7 @@ class OctTree:
     keeps the overall size of the tree much smaller without compromising on
     image quality.
     """
+
     def __init__(self):
         self.root = None
         self.max_level = 2
@@ -71,6 +72,7 @@ class OctTree:
         On the first level a node represents 1/8 of the cube, whereas a node on the
         deepest level representing 1/16,777,216 of the cube / a single RGB colour.
         """
+
         def __init__(self, parent=None, level=0, outer=None):
             self.red = 0
             self.green = 0
@@ -99,9 +101,7 @@ class OctTree:
                 idx = self.compute_index(r, g, b, level)
                 if self.children[idx] is None:
                     self.children[idx] = outer.OTNode(
-                        parent=self,
-                        level=level + 1,
-                        outer=outer
+                        parent=self, level=level + 1, outer=outer
                     )
                 self.children[idx].insert(r, g, b, level + 1, outer)
             else:
@@ -127,7 +127,7 @@ class OctTree:
                     return (
                         self.red // self.count,
                         self.green // self.count,
-                        self.blue // self.count
+                        self.blue // self.count,
                     )
                 else:
                     print("No leaf node to represent this colour.")
@@ -135,7 +135,7 @@ class OctTree:
                 return (
                     self.red // self.count,
                     self.green // self.count,
-                    self.blue // self.count
+                    self.blue // self.count,
                 )
 
         def merge(self):

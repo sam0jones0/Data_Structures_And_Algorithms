@@ -2,6 +2,7 @@ class BinaryHeap:
     """Heap implementation using a balanced binary tree represented as
     a single list.
     """
+
     def __init__(self):
         self._heap = []
 
@@ -14,7 +15,7 @@ class BinaryHeap:
             if self._heap[cur_idx] < self._heap[parent_idx]:
                 self._heap[cur_idx], self._heap[parent_idx] = (
                     self._heap[parent_idx],
-                    self._heap[cur_idx]
+                    self._heap[cur_idx],
                 )
             cur_idx = parent_idx
 
@@ -27,7 +28,7 @@ class BinaryHeap:
             if self._heap[cur_idx] > self._heap[min_child_idx]:
                 self._heap[cur_idx], self._heap[min_child_idx] = (
                     self._heap[min_child_idx],
-                    self._heap[cur_idx]
+                    self._heap[cur_idx],
                 )
             else:
                 return

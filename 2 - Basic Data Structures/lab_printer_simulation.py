@@ -77,6 +77,6 @@ averages = []
 for i in range(10):
     # simulation(num_students, num_seconds, pages_per_minute)
     simulation(20, 28_800, 10)
-print(f"\nTotal average wait across all simulations {sum(averages) / len(averages):6.2f} secs")
-
-
+print(
+    f"\nTotal average wait across all simulations {sum(averages) / len(averages):6.2f} secs"
+)

@@ -13,7 +13,9 @@ def make_change_recursive(coin_value_list, change, known_results):
         return known_results[change]
     else:
         for i in [coin for coin in coin_value_list if coin <= change]:
-            num_coins = 1 + make_change_recursive(coin_value_list, change - i, known_results)
+            num_coins = 1 + make_change_recursive(
+                coin_value_list, change - i, known_results
+            )
             if num_coins < min_coins:
                 min_coins = num_coins
             known_results[change] = min_coins
@@ -57,7 +59,9 @@ def main():
     print(
         f"Making change for {amount} requires the following "
         f"{make_change_loop(coin_list, amount, coin_count, coins_used)} "
-        f"coins: ", end="")
+        f"coins: ",
+        end="",
+    )
 
     print_coins(coins_used, amount)
     print("The used list is as follows:")
@@ -65,20 +69,3 @@ def main():
 
 
 main()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

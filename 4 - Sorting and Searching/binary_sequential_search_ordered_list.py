@@ -60,24 +60,28 @@ def binary_search_rec(a_list, item):
         if a_list[midpoint] == item:
             return True
         elif item < a_list[midpoint]:
-            return binary_search_rec(
-                a_list[:midpoint], item
-            )
+            return binary_search_rec(a_list[:midpoint], item)
         else:
-            return binary_search_rec(
-                a_list[midpoint + 1:], item
-            )
+            return binary_search_rec(a_list[midpoint + 1 :], item)
 
 
 # Create timer objects for each function and import runtime requirements.
-seq_unordered = Timer("sequential_search_unordered(x, random.randint(min_list, max_list))",
-                      "from __main__ import x, sequential_search_unordered, random, max_list, min_list")
-seq_ordered = Timer("sequential_search_ordered(x, random.randint(min_list, max_list))",
-                    "from __main__ import x, sequential_search_ordered, random, max_list, min_list")
-seq_binary = Timer("binary_search(x, random.randint(min_list, max_list))",
-                   "from __main__ import x, binary_search, random, max_list, min_list")
-seq_binary_rec = Timer("binary_search_rec(x, random.randint(min_list, max_list))",
-                       "from __main__ import x, binary_search_rec, random, max_list, min_list")
+seq_unordered = Timer(
+    "sequential_search_unordered(x, random.randint(min_list, max_list))",
+    "from __main__ import x, sequential_search_unordered, random, max_list, min_list",
+)
+seq_ordered = Timer(
+    "sequential_search_ordered(x, random.randint(min_list, max_list))",
+    "from __main__ import x, sequential_search_ordered, random, max_list, min_list",
+)
+seq_binary = Timer(
+    "binary_search(x, random.randint(min_list, max_list))",
+    "from __main__ import x, binary_search, random, max_list, min_list",
+)
+seq_binary_rec = Timer(
+    "binary_search_rec(x, random.randint(min_list, max_list))",
+    "from __main__ import x, binary_search_rec, random, max_list, min_list",
+)
 
 # Heading for the printed results table.
 print("Average milliseconds to complete function once:")
@@ -98,4 +102,6 @@ for i in range(min_list, max_list, step):
     binary_t = seq_binary.timeit(number=1000)
     binary_rec_t = seq_binary_rec.timeit(number=1000)
 
-    print(f"{i:<10d}{ordered_t:>15.5f}{unordered_t:>15.5f}{binary_t:>15.5f}{binary_rec_t:>15.5f}")
+    print(
+        f"{i:<10d}{ordered_t:>15.5f}{unordered_t:>15.5f}{binary_t:>15.5f}{binary_rec_t:>15.5f}"
+    )

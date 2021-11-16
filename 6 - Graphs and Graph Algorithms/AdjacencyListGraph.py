@@ -7,6 +7,7 @@ import sys
 
 class Graph:
     """A directed Adjacency List Graph."""
+
     def __init__(self):
         self.vert_list = {}
         self.num_vertices = 0
@@ -47,10 +48,11 @@ class Graph:
 
 class Vertex:
     """A Vertex (node) of an Adjacency List Graph."""
+
     def __init__(self, id):
         self.id = id
         self.connected_to = {}
-        self.colour = 'white'
+        self.colour = "white"
         self.dist = sys.maxsize
         self.predecessor = None
         self.disc = 0

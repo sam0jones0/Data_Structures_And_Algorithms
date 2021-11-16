@@ -15,9 +15,9 @@ goal_list = split(goal)
 
 def generate_string():
     """Generates 28 char random string using chars a-z and 'space'."""
-    attempt = ''
+    attempt = ""
     for i in range(28):
-        attempt += random.choice('abcdefghijklmnopqrstuvwxyz ')
+        attempt += random.choice("abcdefghijklmnopqrstuvwxyz ")
     return attempt
 
 
@@ -35,12 +35,12 @@ def make_score(attempt, goal_list):
         if attempt_list[i] == goal_list[i]:
             matching_chars += 1
         else:
-            attempt_list[i] = random.choice('abcdefghijklmnopqrstuvwxyz ')
+            attempt_list[i] = random.choice("abcdefghijklmnopqrstuvwxyz ")
             attempts += 1
 
     score = round(matching_chars / len(goal), 4)
-    print(score, ''.join(attempt_list))
-    current_best_attempt = ''.join(attempt_list)
+    print(score, "".join(attempt_list))
+    current_best_attempt = "".join(attempt_list)
 
 
 while score < 1.0:

@@ -39,8 +39,16 @@ def gen_legal_moves(row, col, board_size):
     row/col co-ordinate.
     """
     new_moves = []
-    move_offsets = [(-1, -2), (-1, 2), (-2, -1), (-2, 1),
-                    (1, -2), (1, 2), (2, -1), (2, 1)]
+    move_offsets = [
+        (-1, -2),
+        (-1, 2),
+        (-2, -1),
+        (-2, 1),
+        (1, -2),
+        (1, 2),
+        (2, -1),
+        (2, 1),
+    ]
 
     for move in move_offsets:
         if is_legal_coord(row + move[0], col + move[1], board_size):
@@ -61,17 +69,23 @@ def draw_graph_pdf(graph, board_size):
     """Create the data necessary for matplotlib and networkx, and have them draw a
     PDF representation of the graph.
     """
-    matplotlib.use('Agg')
+    matplotlib.use("Agg")
 
     # Parse graph data and create grid co-ordinates.
     graph_data = parse_graph_for_nx(graph, board_size)
     nx_graph = nx.Graph(graph_data)
     pos = get_graph_pos(board_size)
-    nx.draw_networkx(nx_graph, pos=pos, with_labels=True, node_color="skyblue",
-                     edge_color="k", font_size=8)
+    nx.draw_networkx(
+        nx_graph,
+        pos=pos,
+        with_labels=True,
+        node_color="skyblue",
+        edge_color="k",
+        font_size=8,
+    )
 
     # Draw the graph and save as PDF.
-    plt.axis('off')
+    plt.axis("off")
     plt.draw()
     plt.savefig("knight_moves_graph.pdf")
 

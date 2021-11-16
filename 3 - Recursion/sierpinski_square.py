@@ -20,6 +20,7 @@ def draw_square(points, color, my_turtle):
 
     my_points = [[-200, 200], [200, 200], [200, -200], [-200, -200]]
 
+
 def get_mid(p1, p2):
     return (p1[0] + p2[0]) / 2, (p1[1] + p2[1]) / 2
 
@@ -29,14 +30,24 @@ def sierpinski_square(points, degree, my_turtle):
     draw_square(points, colormap[degree], my_turtle)
     if degree > 0:
         sierpinski_square(
-            [points[0], get_mid(points[0], points[1]), get_mid(points[0], points[2]), get_mid(points[0], points[3])],
+            [
+                points[0],
+                get_mid(points[0], points[1]),
+                get_mid(points[0], points[2]),
+                get_mid(points[0], points[3]),
+            ],
             degree - 1,
-            my_turtle
+            my_turtle,
         )
         sierpinski_square(
-            [points[1], get_mid(points[1], points[0]), get_mid(points[1], points[2]), get_mid(points[1], points[2])],
+            [
+                points[1],
+                get_mid(points[1], points[0]),
+                get_mid(points[1], points[2]),
+                get_mid(points[1], points[2]),
+            ],
             degree - 1,
-            my_turtle
+            my_turtle,
         )
         # sierpinski_square(
         #     [points[2], get_mid(points[2], points[1]), get_mid(points[1], points[2]), get_mid(points[2], points[3])],
@@ -57,5 +68,6 @@ def main():
     my_points = [[-200, 200], [200, 200], [200, -200], [-200, -200]]
     sierpinski_square(my_points, 5, my_turtle)
     my_win.exitonclick()
+
 
 main()

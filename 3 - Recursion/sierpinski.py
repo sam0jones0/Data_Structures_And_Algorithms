@@ -27,17 +27,17 @@ def sierpinski(points, degree, my_turtle):
         sierpinski(
             [points[0], get_mid(points[0], points[1]), get_mid(points[0], points[2])],
             degree - 1,
-            my_turtle
+            my_turtle,
         )
         sierpinski(
             [points[1], get_mid(points[0], points[1]), get_mid(points[1], points[2])],
             degree - 1,
-            my_turtle
+            my_turtle,
         )
         sierpinski(
             [points[2], get_mid(points[2], points[1]), get_mid(points[0], points[2])],
             degree - 1,
-            my_turtle
+            my_turtle,
         )
 
 
@@ -103,12 +103,3 @@ main()
 #     my_win.exitonclick()
 #
 # main()
-
-
-
-
-
-
-
-
-

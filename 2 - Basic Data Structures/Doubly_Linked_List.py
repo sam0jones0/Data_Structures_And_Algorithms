@@ -3,7 +3,7 @@ from Doubly_Linked_List_Node import Node
 
 class DoublyLinkedList:
     """Doubly linked list implementation with items as nodes.
-        Parent class for Ordered/Unordered list variants."""
+    Parent class for Ordered/Unordered list variants."""
 
     def __init__(self):
         self.head = None
@@ -34,7 +34,7 @@ class DoublyLinkedList:
 
     def pop(self, index=None):
         """Remove and return item at given index or last item
-           if no index given."""
+        if no index given."""
         if index is None:
             current = self.tail
             if current.prev is None and current._next is None:
@@ -89,13 +89,13 @@ class DoublyLinkedList:
 
     def __str__(self):
         """Return list as string."""
-        list_str = '['
+        list_str = "["
         current = self.head
         while current is not None:
             list_str += str(current.data)
             if current.next is not None:
-                list_str += ', '
+                list_str += ", "
             current = current._next
-        list_str += ']'
+        list_str += "]"
 
         return list_str

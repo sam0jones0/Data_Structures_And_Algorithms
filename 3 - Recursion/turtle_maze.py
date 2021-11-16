@@ -15,6 +15,7 @@ class Maze:
     """Maze class handles the drawing of the maze onto a grid of tiles
     and provides the turtle with movement and environment interaction recognition.
     """
+
     def __init__(self, maze_filename):
         """Read map file and translate to grid of tiles."""
         rows_in_maze = 0
@@ -132,8 +133,8 @@ def search_from(maze, start_row, start_column):
         return False
     # 2. We have found a square that has already been explored.
     if (
-            maze[start_row][start_column] == TRIED
-            or maze[start_row][start_column] == DEAD_END
+        maze[start_row][start_column] == TRIED
+        or maze[start_row][start_column] == DEAD_END
     ):
         return False
     # 3. We have found an outside edge not occupied by an obstacle.
@@ -144,10 +145,10 @@ def search_from(maze, start_row, start_column):
     # Otherwise, use logical short circuiting to try each direction
     # in turn (if needed).
     found = (
-            search_from(maze, start_row - 1, start_column)
-            or search_from(maze, start_row + 1, start_column)
-            or search_from(maze, start_row, start_column - 1)
-            or search_from(maze, start_row, start_column + 1)
+        search_from(maze, start_row - 1, start_column)
+        or search_from(maze, start_row + 1, start_column)
+        or search_from(maze, start_row, start_column - 1)
+        or search_from(maze, start_row, start_column + 1)
     )
     if found:
         maze.update_position(start_row, start_column, PART_OF_PATH)

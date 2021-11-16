@@ -14,7 +14,7 @@ def knights_tour_dfs(vertex, path, limit):
     limit: The total number of nodes in the path, used as the base case.
     """
     done = False
-    vertex.set_colour('gray')  # Denotes visited.
+    vertex.set_colour("gray")  # Denotes visited.
     path.append(vertex)
 
     if len(path) < limit:
@@ -22,12 +22,12 @@ def knights_tour_dfs(vertex, path, limit):
         for neighbour in order_by_fewest_connections(vertex):
             if done:
                 break
-            if neighbour.get_colour() == 'white':
+            if neighbour.get_colour() == "white":
                 # This node is unvisited.
                 done = knights_tour_dfs(neighbour, path, limit)
 
         if not done:  # No unvisited neighbours/dead end. Prepare to backtrack.
-            vertex.set_colour('white')
+            vertex.set_colour("white")
             path.pop()
     else:
         done = True
@@ -44,7 +44,7 @@ def order_by_fewest_connections(vertex):
     for next_vertex in vertex.get_connections():
         count = 0
         for vert in next_vertex.get_connections():
-            if vert.get_colour() == 'white':
+            if vert.get_colour() == "white":
                 count += 1
 
         result_list.append((count, next_vertex))
@@ -62,5 +62,3 @@ start_vertex = knight_graph.vert_list[15]
 knights_tour_dfs(start_vertex, path, 64)
 
 print([v.id for v in path])
-
-

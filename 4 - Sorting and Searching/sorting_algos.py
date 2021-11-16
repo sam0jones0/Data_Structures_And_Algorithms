@@ -120,7 +120,7 @@ def merge_sort(my_list, start, end):
         # Add in unmerged from left half to temp list.
         merged.extend(my_list[i:mid])
         # Inject merged list (which doesn't include unmerged from right half) into main list.
-        my_list[start:start + len(merged)] = merged
+        my_list[start : start + len(merged)] = merged
 
 
 def quick_sort(my_list):
@@ -140,7 +140,9 @@ def partition(my_list, first, last):
     """One pass of the quicksort function. Locates the split point and sorts
     accordingly.
     """
-    pivot_val = my_list[first]  # We are testing with random lists so first can be used as pivot.
+    pivot_val = my_list[
+        first
+    ]  # We are testing with random lists so first can be used as pivot.
     left_mark = first + 1
     right_mark = last
     done = False
@@ -157,7 +159,7 @@ def partition(my_list, first, last):
             # Swap values at left and right mark.
             my_list[left_mark], my_list[right_mark] = (
                 my_list[right_mark],
-                my_list[left_mark]
+                my_list[left_mark],
             )
     # Swap right mark (split point) to first position (pivot point).
     my_list[first], my_list[right_mark] = my_list[right_mark], my_list[first]
@@ -169,16 +171,22 @@ def partition(my_list, first, last):
 bubble = Timer("bubble_sort(x[:])", "from __main__ import bubble_sort, x")
 selection = Timer("selection_sort(x[:])", "from __main__ import selection_sort, x")
 insertion = Timer("insertion_sort(x[:])", "from __main__ import insertion_sort, x")
-shell = Timer("shell_sort(x[:])", "from __main__ import shell_sort, gap_insertion_sort, x")
+shell = Timer(
+    "shell_sort(x[:])", "from __main__ import shell_sort, gap_insertion_sort, x"
+)
 merge_s = Timer("merge_sort_slice(x[:])", "from __main__ import merge_sort_slice, x")
 merge = Timer("merge_sort(x[:], 0, len(x))", "from __main__ import merge_sort, x")
-quick = Timer("quick_sort(x[:])", "from __main__ import quick_sort,"
-                                  "quick_sort_helper, partition, x")
+quick = Timer(
+    "quick_sort(x[:])",
+    "from __main__ import quick_sort," "quick_sort_helper, partition, x",
+)
 
 # Heading for the printed results table.
 print("Average milliseconds to complete sort function once:")
-print(f"{'n':10s}{'bubble':>15s}{'selection':>15s}{'insertion':>15s}"
-      f"{'shell':>15s}{'merge_s':>15s}{'merge':>15s}{'quick':>15s}")
+print(
+    f"{'n':10s}{'bubble':>15s}{'selection':>15s}{'insertion':>15s}"
+    f"{'shell':>15s}{'merge_s':>15s}{'merge':>15s}{'quick':>15s}"
+)
 
 for i in range(100, 1_001, 100):
     x = [random.randint(1, 10_001) for j in range(i)]
@@ -193,5 +201,7 @@ for i in range(100, 1_001, 100):
     quick_t = quick.timeit(number=100)
 
     # Print a line of the results table.
-    print(f"{i:<10d}{bubble_t * 10:>15.5f}{selection_t * 10:>15.5f}{insertion_t * 10:>15.5f}"
-          f"{shell_t * 10:>15.5f}{merge_s_t * 10:>15.5f}{merge_t * 10:>15.5f}{quick_t * 10:>15.5f}")
+    print(
+        f"{i:<10d}{bubble_t * 10:>15.5f}{selection_t * 10:>15.5f}{insertion_t * 10:>15.5f}"
+        f"{shell_t * 10:>15.5f}{merge_s_t * 10:>15.5f}{merge_t * 10:>15.5f}{quick_t * 10:>15.5f}"
+    )

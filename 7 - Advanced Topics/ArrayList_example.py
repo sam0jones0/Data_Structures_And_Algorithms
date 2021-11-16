@@ -8,6 +8,7 @@ class ArrayList:
     """A data structure similar in design to Python's list implementation. Using key
     elements from the Array (C, C++ / Java) data type.
     """
+
     def __init__(self):
         self.size_exponent = 0
         self.max_size = 0
